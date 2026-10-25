@@ -1,8 +1,3 @@
-getgenv().isfile = function() return false end
-getgenv().makefolder = function() end
-getgenv().delfile = function() end
-getgenv().listfiles = function() return {} end
-
 getgenv().writefile = function(name, data) 
     getgenv()[name] = data 
 end
@@ -12,7 +7,6 @@ local _tablefind = clonefunction(table.find);
 local isA = clonefunction(game.IsA);
 local GuiService = game:GetService("GuiService")
 makefolder("MayBeeHub Executor")
-end
 
 getgenv().syn_backup = syn
 if not isfile("uses_syn") then
@@ -497,18 +491,25 @@ local function addCard(title, description, loader)
     end)
 end
 
-addCard(
-    "MayBeeHub",
-    "My handMade Scriphub [:",
-    'loadstring(game:HttpGet("https://raw.githubusercontent.com/winCloudDev/MayBeeHub-/refs/heads/main/MayBeeHub_Loader.lua"))()'
-)
+createFunctionButton(usefulPage, "MayBeeHub", function()
+    local loader = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/winCloudDev/MayBeeHub-/refs/heads/main/MayBeeHub_Loader.lua"))()'
 
-addCard(
-    "Infinite Yield",
-    "Third-party script. Review the source and permissions before deciding whether to use it.",
-    'loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()'
-)
+    if setclipboard then
+        setclipboard(loader)
+    else
+        warn("Clipboard function is unavailable.")
+    end
+end)
 
+createFunctionButton(usefulPage, "Infinite Yield", function()
+    local loader = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()'
+
+    if setclipboard then
+        setclipboard(loader)
+    else
+        warn("Clipboard function is unavailable.")
+    end
+end)
 -- Tab system
 local Pages = {
     Executor = Executor,
